@@ -43,8 +43,8 @@ a {
                 padding-inline: 2rem;
                 text-align: center;
 
-                &:hover{
-                  text-decoration: underline
+                &:hover {
+                    text-decoration: underline;
                 }
 
                 &-active {
@@ -88,7 +88,8 @@ a {
                 margin: auto;
                 margin-bottom: 1.5rem;
             }
-            .divider-lg,.divider-md {
+            .divider-lg,
+            .divider-md {
                 margin-bottom: 3rem;
             }
             .dice {
@@ -112,6 +113,39 @@ a {
 
                 & > * {
                     margin: 1rem;
+                }
+            }
+        }
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5rem;
+
+            .search {
+                display: flex;
+                gap: 0.5rem;
+                #advice-search {
+                    border: $neon-green 2px solid;
+                    background-color: $grayish-blue;
+                    color: $light-cyan;
+                    border-radius: 2rem;
+                    padding: 1rem;
+                    font-size: 1.5rem;
+
+                    &::placeholder {
+                        color: $light-cyan;
+                        opacity: 0.3;
+                    }
+                }
+                #search-btn {
+                    border: $dark-grayish-blue solid 2px;
+                    padding: 0.5rem;
+                    height: 5rem;
+                    width: 5rem;
+                    background-color: $neon-green;
+                    color: $grayish-blue;
+                    border-radius: 50%;
                 }
             }
         }
