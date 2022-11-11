@@ -2,13 +2,33 @@ import "./styles/App.scss"
 import { Routes, Route, Link } from "react-router-dom"
 import Card from "./components/Card"
 import SearchPage from "./components/SearchPage"
+import { useEffect, useState } from "react"
 
 function App() {
+    const [width, setWidth] = useState(window.innerWidth)
+    // const [currentTab, setCurrentTab] = useState(0)
+
+    const handleWindowSizeChange = () => {
+        setWidth(window.innerWidth)
+    }
+    useEffect(() => {
+        window.addEventListener("resize", handleWindowSizeChange)
+        return () => {
+            window.removeEventListener("resize", handleWindowSizeChange)
+        }
+    }, [])
+    const isMobile = width <= 768
+
+    // const handleTabChange = (tabState) => {}
+
     return (
         <div className="App">
             <div className="tab-bar">
-                <Link to="/">
-                    <div className="tab-item-active">Home</div>
+                <Link
+                    to="/"
+                    // onClick={handleTabChange}
+                >
+                    <div className="tab-item">Home</div>
                 </Link>
                 <Link to="/search">
                     <div className="tab-item">Search</div>
@@ -19,7 +39,7 @@ function App() {
                     <Route
                         exact
                         path="/"
-                        element={<Card />}
+                        element={<Card isMobile={isMobile} />}
                     ></Route>
                     <Route
                         exact

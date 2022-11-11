@@ -2,34 +2,41 @@ import { useState, useEffect } from "react"
 import { ReactComponent as IconDice } from "../assets/images/icon-dice.svg"
 import { ReactComponent as PatternDividerLg } from "../assets/images/pattern-divider-desktop.svg"
 import { ReactComponent as PatternDividerMd } from "../assets/images/pattern-divider-mobile.svg"
+import axios from "axios"
 
-const Card = () => {
-    const [width, setWidth] = useState(window.innerWidth)
+const Card = ({ isMobile }) => {
+    const [advice, setAdvice] = useState([])
 
-    function handleWindowSizeChange() {
-        setWidth(window.innerWidth)
+    const baseUrl = "https://api.adviceslip.com/advice"
+
+    const getAdvice = () => {
+        axios
+            .get(baseUrl)
+            .then((res) => {
+                setAdvice(res.data.slip)
+                console.log(res.data.slip)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
     useEffect(() => {
-        window.addEventListener("resize", handleWindowSizeChange)
-        return () => {
-            window.removeEventListener("resize", handleWindowSizeChange)
-        }
+        getAdvice()
     }, [])
 
-    const isMobile = width <= 768
     return (
         <div className="card">
-            <h5>Advice #115</h5>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque,
-                maiores.
-            </p>
+            <h5>Advice #{advice.id}</h5>
+            <p>{advice.advice}</p>
             {isMobile ? (
                 <PatternDividerMd className="divider-md" />
             ) : (
                 <PatternDividerLg className="divider-lg" />
             )}
-            <div className="dice">
+            <div
+                className="dice"
+                onClick={getAdvice}
+            >
                 <IconDice />
             </div>
         </div>
