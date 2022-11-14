@@ -1,13 +1,54 @@
+import { useState, useRef } from "react"
+import Card from "./Card"
+import { useGetSearchAdviceQuery } from "../features/api/apiSlice"
+
 const SearchPage = () => {
+    const [query, setQuery] = useState("")
+    const [result, setResult] = useState(null)
+    const {
+        data: advices,
+        isLoading,
+        isError,
+        error,
+    } = useGetSearchAdviceQuery(query)
+
+    const handleQuery = (e) => {
+        setQuery(e.target.value)
+    }
+    const handleSearch = () => {
+        if (query === "") {
+            return console.log("Enter something")
+        }
+
+        if (error) {
+            console.error(error)
+            console.log("There was an error")
+        } else if (isLoading) {
+            console.log("loading")
+        } else if (advices.slips) {
+            // console.log(advices)
+            setResult(advices.slips[0])
+        } else {
+            console.log(advices.message.text)
+        }
+        // console.log(result)
+    }
+
     return (
         <div className="search-container">
             <div className="search">
                 <input
                     type="search"
                     name="advice-search"
-                    id="advice-searcch"
+                    id="advice-search"
+                    placeholder="Search on a topic"
+                    onChange={handleQuery}
                 />
-                <button type="submit" id="search-btn">
+                <button
+                    type="submit"
+                    id="search-btn"
+                    onClick={handleSearch}
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         x="0px"
@@ -20,6 +61,16 @@ const SearchPage = () => {
                     </svg>
                 </button>
             </div>
+            {isError ? (
+                <h4>Oh no! something gone wrong!</h4>
+            ) : isLoading ? (
+                <h4>Loading...</h4>
+            ) : result ? (
+                <Card
+                    id={result.id}
+                    advice={result.advice}
+                />
+            ) : null}
         </div>
     )
 }

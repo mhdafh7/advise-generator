@@ -1,6 +1,6 @@
 import "./styles/App.scss"
 import { Routes, Route, Link } from "react-router-dom"
-import Card from "./components/Card"
+import AdviceCard from "./components/AdviceCard"
 import SearchPage from "./components/SearchPage"
 import { useEffect, useState } from "react"
 
@@ -39,7 +39,7 @@ function App() {
                     <Route
                         exact
                         path="/"
-                        element={<Card isMobile={isMobile} />}
+                        element={<AdviceCard />}
                     ></Route>
                     <Route
                         exact
