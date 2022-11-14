@@ -67,6 +67,7 @@ a {
 
         // card
         .card {
+            min-width: max-content;
             width: 60%;
             max-width: 80rem;
             background-color: $dark-grayish-blue;
