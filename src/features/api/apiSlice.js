@@ -5,6 +5,7 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "https://api.adviceslip.com/",
     }),
+    keepUnusedDataFor: 30,
     endpoints: (builder) => ({
         getAdvice: builder.query({
             query: () => "advice",
