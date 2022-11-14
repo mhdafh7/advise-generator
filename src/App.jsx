@@ -2,7 +2,6 @@ import "./styles/App.scss"
 import { Routes, Route, Link } from "react-router-dom"
 import AdviceCard from "./components/AdviceCard"
 import SearchPage from "./components/SearchPage"
-import { useEffect, useState } from "react"
 
 function App() {
     // TODO: active and inactive
