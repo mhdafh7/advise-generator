@@ -67,7 +67,8 @@ a {
 
         // card
         .card {
-            width: clamp(360px, 60%, 80rem);
+            width: 60%;
+            max-width: 80rem;
             background-color: $dark-grayish-blue;
             border-radius: 2rem;
             padding: 4rem 2rem;
