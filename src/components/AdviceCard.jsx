@@ -2,8 +2,9 @@ import { useGetAdviceQuery } from "../features/api/apiSlice"
 import Card from "./Card"
 
 const AdviceCard = () => {
-    const { data, isLoading, error } = useGetAdviceQuery()
-
+    
+    const { data, isLoading, isError, error } = useGetAdviceQuery()
+    
     return (
         <>
             {isLoading ? (
