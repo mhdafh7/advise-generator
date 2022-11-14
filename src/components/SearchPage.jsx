@@ -1,10 +1,10 @@
-import { useState, useRef } from "react"
+import { useState } from "react"
 import Card from "./Card"
 import { useGetSearchAdviceQuery } from "../features/api/apiSlice"
 
 const SearchPage = () => {
     const [query, setQuery] = useState("")
-    const [result, setResult] = useState(null)
+    const [element, setElement] = useState(null)
     const {
         data: advices,
         isLoading,
@@ -15,21 +15,32 @@ const SearchPage = () => {
     const handleQuery = (e) => {
         setQuery(e.target.value)
     }
+
     const handleSearch = () => {
         if (query === "") {
-            return console.log("Enter something")
+            setElement(<h4>Enter something...</h4>)
+            return
         }
-
-        if (error) {
+        if (isError) {
             console.error(error)
-            console.log("There was an error")
+            setElement(<h4>Oops Something bad happend!</h4>)
+            return
         } else if (isLoading) {
             console.log("loading")
+            setElement(<h4>Loading...</h4>)
+            return
         } else if (advices.slips) {
             // console.log(advices)
-            setResult(advices.slips[0])
+            setElement(
+                <Card
+                    id={advices.slips[0].id}
+                    advice={advices.slips[0].advice}
+                />
+            )
+            return
         } else {
             console.log(advices.message.text)
+            setElement(<h4>{advices.message.text}</h4>)
         }
         // console.log(result)
     }
@@ -61,16 +72,7 @@ const SearchPage = () => {
                     </svg>
                 </button>
             </div>
-            {isError ? (
-                <h4>Oh no! something gone wrong!</h4>
-            ) : isLoading ? (
-                <h4>Loading...</h4>
-            ) : result ? (
-                <Card
-                    id={result.id}
-                    advice={result.advice}
-                />
-            ) : null}
+            {element}
         </div>
     )
 }
