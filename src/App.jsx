@@ -5,19 +5,8 @@ import SearchPage from "./components/SearchPage"
 import { useEffect, useState } from "react"
 
 function App() {
-    const [width, setWidth] = useState(window.innerWidth)
+    // TODO: active and inactive
     // const [currentTab, setCurrentTab] = useState(0)
-
-    const handleWindowSizeChange = () => {
-        setWidth(window.innerWidth)
-    }
-    useEffect(() => {
-        window.addEventListener("resize", handleWindowSizeChange)
-        return () => {
-            window.removeEventListener("resize", handleWindowSizeChange)
-        }
-    }, [])
-    const isMobile = width <= 768
 
     // const handleTabChange = (tabState) => {}
 
@@ -26,7 +15,6 @@ function App() {
             <div className="tab-bar">
                 <Link
                     to="/"
-                    // onClick={handleTabChange}
                 >
                     <div className="tab-item">Home</div>
                 </Link>
