@@ -81,6 +81,16 @@ a {
             justify-content: space-around;
             gap: 2.5rem;
 
+            @media (max-width:576px) {
+                width: 100%;
+                margin-inline: 0.2rem;
+            }
+
+            h4{
+                text-align: center;
+                font-size: 1.5rem;
+            }
+
             h5 {
                 color: $neon-green;
                 font-size: 1.5rem;
