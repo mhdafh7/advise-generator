@@ -2,6 +2,7 @@
 #root {
     max-width: 1280px;
     margin: 0 auto;
+    width: 100%;
 }
 * {
     padding: 0%;
@@ -67,9 +68,7 @@ a {
 
         // card
         .card {
-            min-width: max-content;
-            width: 60%;
-            max-width: 80rem;
+            width: clamp(25rem,60%,80rem);
             background-color: $dark-grayish-blue;
             border-radius: 2rem;
             padding: 4rem 2rem;
