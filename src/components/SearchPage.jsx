@@ -1,49 +1,59 @@
-import { useState } from "react"
-import Card from "./Card"
-import { useGetSearchAdviceQuery } from "../features/api/apiSlice"
+import { useState } from 'react';
+import Card from './Card';
+import { useGetSearchAdviceQuery } from '../features/api/apiSlice';
 
 const SearchPage = () => {
-    const [query, setQuery] = useState("")
-    const [element, setElement] = useState(null)
+    const [query, setQuery] = useState('');
+    const [element, setElement] = useState(null);
     const {
         data: advices,
         isLoading,
         isError,
         error,
-    } = useGetSearchAdviceQuery(query)
+    } = useGetSearchAdviceQuery(query);
 
     const handleQuery = (e) => {
-        setQuery(e.target.value)
-    }
+        setQuery(e.target.value);
+    };
 
     const handleSearch = () => {
-        if (query === "") {
-            setElement(<h4>Enter something...</h4>)
-            return
+        if (query === '') {
+            setElement(<h4>Enter something...</h4>);
+            return;
         }
         if (isError) {
-            console.error(error)
-            setElement(<h4>Oops Something bad happend!</h4>)
-            return
+            console.error(error);
+            setElement(<h4>Oops Something bad happend!</h4>);
+            return;
         } else if (isLoading) {
-            console.log("loading")
-            setElement(<h4>Loading...</h4>)
-            return
+            console.log('loading');
+            setElement(<h4>Loading...</h4>);
+            return;
         } else if (advices.slips) {
-            // console.log(advices)
+            console.log(advices);
             setElement(
-                <Card
-                    id={advices.slips[0].id}
-                    advice={advices.slips[0].advice}
-                />
-            )
-            return
+                // <Card
+                //     id={advices.slips[0].id}
+                //     advice={advices.slips[0].advice}
+                // />
+                advices.slips.map((advice) => {
+                    return (
+                        <Card
+                            key={advice.id}
+                            id={advice.id}
+                            advice={advice.advice}
+                            refetchBtn={false}
+                        />
+                    );
+                })
+            );
+            // return;
         } else {
-            console.log(advices.message.text)
-            setElement(<h4>{advices.message.text}</h4>)
+            console.log(advices.message.text);
+            setElement(<h4>{advices.message.text}</h4>);
         }
         // console.log(result)
-    }
+    };
 
     return (
         <div className="search-container">
@@ -72,8 +82,14 @@ const SearchPage = () => {
                     </svg>
                 </button>
             </div>
-            {element}
+            <section>
+                {element ? (
+                    element
+                ) : (
+                    <h3>Search anything..</h3>
+                )}
+            </section>
         </div>
-    )
-}
-export default SearchPage
+    );
+};
+export default SearchPage;

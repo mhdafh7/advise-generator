@@ -1,24 +1,24 @@
-import { ReactComponent as IconDice } from "../assets/images/icon-dice.svg"
-import { ReactComponent as PatternDividerLg } from "../assets/images/pattern-divider-desktop.svg"
-import { ReactComponent as PatternDividerMd } from "../assets/images/pattern-divider-mobile.svg"
-import { useState, useEffect } from "react"
-import { useGetAdviceQuery } from "../features/api/apiSlice"
+import { ReactComponent as IconDice } from '../assets/images/icon-dice.svg';
+import { ReactComponent as PatternDividerLg } from '../assets/images/pattern-divider-desktop.svg';
+import { ReactComponent as PatternDividerMd } from '../assets/images/pattern-divider-mobile.svg';
+import { useState, useEffect } from 'react';
+import { useGetAdviceQuery } from '../features/api/apiSlice';
 
-const Card = ({ advice, id }) => {
-    const [width, setWidth] = useState(window.innerWidth)
-    const { refetch } = useGetAdviceQuery()
+const Card = ({ advice, id, refetchBtn }) => {
+    const [width, setWidth] = useState(window.innerWidth);
+    const { refetch } = useGetAdviceQuery();
 
     const handleWindowSizeChange = () => {
-        setWidth(window.innerWidth)
-    }
+        setWidth(window.innerWidth);
+    };
     useEffect(() => {
-        window.addEventListener("resize", handleWindowSizeChange)
+        window.addEventListener('resize', handleWindowSizeChange);
         return () => {
-            window.removeEventListener("resize", handleWindowSizeChange)
-        }
-    }, [])
+            window.removeEventListener('resize', handleWindowSizeChange);
+        };
+    }, []);
 
-    const isMobile = width <= 768
+    const isMobile = width <= 768;
 
     return (
         <div className="card">
@@ -29,16 +29,18 @@ const Card = ({ advice, id }) => {
             ) : (
                 <PatternDividerLg className="divider-lg" />
             )}
-            <div
-                className="dice"
-                onClick={() => {
-                    console.log("stuff")
-                    refetch()
-                }}
-            >
-                <IconDice />
-            </div>
+            {refetchBtn ? (
+                <div
+                    className="dice"
+                    onClick={() => {
+                        console.log('stuff');
+                        refetch();
+                    }}
+                >
+                    <IconDice />
+                </div>
+            ) : null}
         </div>
-    )
-}
-export default Card
+    );
+};
+export default Card;
