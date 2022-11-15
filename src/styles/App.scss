@@ -1,4 +1,4 @@
-@import "colors";
+@import 'colors';
 #root {
     max-width: 1280px;
     margin: 0 auto;
@@ -18,19 +18,15 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 10%;
     gap: 2rem;
     position: relative;
     min-height: 100vh;
 
-    @media (max-width:576px) {
+    @media (max-width: 576px) {
         padding-bottom: 35%;
     }
 
-    // top tab-bar
     .tab-bar {
-        position: fixed;
-        top: 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -67,10 +63,13 @@ a {
     }
     main {
         width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
 
-        // card
         .card {
-            width: clamp(25rem,60%,80rem);
+            width: clamp(25rem, 60%, 80rem);
             background-color: $dark-grayish-blue;
             border-radius: 2rem;
             padding: 4rem 2rem;
@@ -83,12 +82,12 @@ a {
             justify-content: space-around;
             gap: 2.5rem;
 
-            @media (max-width:576px) {
+            @media (max-width: 576px) {
                 width: 100%;
                 margin-inline: 0.2rem;
             }
 
-            h4{
+            h4 {
                 text-align: center;
                 font-size: 1.5rem;
             }
@@ -140,15 +139,34 @@ a {
             flex-direction: column;
             align-items: center;
             gap: 5rem;
+            margin-top: 5rem;
+            min-width: 50%;
 
-            h4{
-                font-weight: 600;
-                font-size: 1.8rem;
+            section {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-direction: column;
+                overflow-y: scroll;
+                height: 67vh;
+                width: 100%;
+                padding-bottom: 2rem;
+                gap: 1rem;
+                h4 {
+                    font-weight: 600;
+                    font-size: 1.8rem;
+                }
+                h3{
+                    font-size: 2rem;
+                }
             }
 
             .search {
                 display: flex;
                 gap: 0.5rem;
+                z-index: 99;
+                width: 100%;
+                max-width: 50rem;
                 #advice-search {
                     border: $neon-green 2px solid;
                     background-color: $grayish-blue;
@@ -156,6 +174,7 @@ a {
                     border-radius: 2rem;
                     padding: 1rem;
                     font-size: 1.5rem;
+                    width: 100%;
 
                     &::placeholder {
                         color: $light-cyan;
