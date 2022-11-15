@@ -1,10 +1,9 @@
-import { useGetAdviceQuery } from "../features/api/apiSlice"
-import Card from "./Card"
+import { useGetAdviceQuery } from '../features/api/apiSlice';
+import Card from './Card';
 
 const AdviceCard = () => {
-    
-    const { data, isLoading, isError, error } = useGetAdviceQuery()
-    
+    const { data, isLoading, isError, error } = useGetAdviceQuery();
+
     return (
         <>
             {isLoading ? (
@@ -15,6 +14,7 @@ const AdviceCard = () => {
                 <Card
                     advice={data.slip.advice}
                     id={data.slip.id}
+                    refetchBtn={true}
                 />
             ) : isError ? (
                 <div
@@ -25,6 +25,6 @@ const AdviceCard = () => {
                 </div>
             ) : null}
         </>
-    )
-}
-export default AdviceCard
+    );
+};
+export default AdviceCard;
