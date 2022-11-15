@@ -1,24 +1,41 @@
-import "./styles/App.scss"
-import { Routes, Route, Link } from "react-router-dom"
-import AdviceCard from "./components/AdviceCard"
-import SearchPage from "./components/SearchPage"
+import './styles/App.scss';
+import { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import AdviceCard from './components/AdviceCard';
+import SearchPage from './components/SearchPage';
 
 function App() {
     // TODO: active and inactive
-    // const [currentTab, setCurrentTab] = useState(0)
+    const [currentTab, setCurrentTab] = useState('home');
 
-    // const handleTabChange = (tabState) => {}
+    const handleTabChange = (tabName) => {
+        setCurrentTab(tabName);
+    };
 
     return (
         <div className="App">
             <div className="tab-bar">
-                <Link
-                    to="/"
-                >
-                    <div className="tab-item">Home</div>
+                <Link to="/">
+                    <div
+                        onClick={() => handleTabChange('home')}
+                        className={
+                            'tab-item' +
+                            (currentTab === 'home' ? '-active' : '')
+                        }
+                    >
+                        Home
+                    </div>
                 </Link>
                 <Link to="/search">
-                    <div className="tab-item">Search</div>
+                    <div
+                        onClick={() => handleTabChange('search')}
+                        className={
+                            'tab-item' +
+                            (currentTab === 'search' ? '-active' : '')
+                        }
+                    >
+                        Search
+                    </div>
                 </Link>
             </div>
             <main>
@@ -36,7 +53,7 @@ function App() {
                 </Routes>
             </main>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
