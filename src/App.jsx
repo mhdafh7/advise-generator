@@ -1,37 +1,42 @@
 import './styles/App.scss';
-import { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import AdviceCard from './components/AdviceCard';
 import SearchPage from './components/SearchPage';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    changeToHome,
+    changeToSearch,
+    selectTab,
+} from './features/tabs/tabSlice';
 
 function App() {
-    // TODO: active and inactive
-    const [currentTab, setCurrentTab] = useState('home');
+    const activeTab = useSelector(selectTab);
 
-    const handleTabChange = (tabName) => {
-        setCurrentTab(tabName);
-    };
+    const dispatch = useDispatch();
 
     return (
         <div className="App">
             <div className="tab-bar">
-                <Link to="/">
+                <Link
+                    to="/"
+                    onClick={() => dispatch(changeToHome())}
+                >
                     <div
-                        onClick={() => handleTabChange('home')}
                         className={
-                            'tab-item' +
-                            (currentTab === 'home' ? '-active' : '')
+                            'tab-item' + (activeTab === 'home' ? '-active' : '')
                         }
                     >
                         Home
                     </div>
                 </Link>
-                <Link to="/search">
+                <Link
+                    to="/search"
+                    onClick={() => dispatch(changeToSearch())}
+                >
                     <div
-                        onClick={() => handleTabChange('search')}
                         className={
                             'tab-item' +
-                            (currentTab === 'search' ? '-active' : '')
+                            (activeTab === 'search' ? '-active' : '')
                         }
                     >
                         Search

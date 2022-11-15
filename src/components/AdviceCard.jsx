@@ -3,7 +3,7 @@ import Card from './Card';
 
 const AdviceCard = () => {
     const { data, isLoading, isError, error } = useGetAdviceQuery();
-
+    console.log(data);
     return (
         <>
             {isLoading ? (

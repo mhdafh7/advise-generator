@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import Card from './Card';
 import { useGetSearchAdviceQuery } from '../features/api/apiSlice';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { changeToHome } from '../features/tabs/tabSlice';
 
 const SearchPage = () => {
     const [query, setQuery] = useState('');
     const [element, setElement] = useState(null);
+    const dispatch = useDispatch();
     const {
         data: advices,
         isLoading,
@@ -32,27 +36,28 @@ const SearchPage = () => {
         } else if (advices.slips) {
             console.log(advices);
             setElement(
-                // <Card
-                //     id={advices.slips[0].id}
-                //     advice={advices.slips[0].advice}
-                // />
                 advices.slips.map((advice) => {
                     return (
-                        <Card
+                        <Link
+                            to="/"
                             key={advice.id}
-                            id={advice.id}
-                            advice={advice.advice}
-                            refetchBtn={false}
-                        />
+                            onClick={() => {
+                                dispatch(changeToHome());
+                            }}
+                        >
+                            <Card
+                                id={advice.id}
+                                advice={advice.advice}
+                                refetchBtn={false}
+                            />
+                        </Link>
                     );
                 })
             );
-            // return;
         } else {
             console.log(advices.message.text);
             setElement(<h4>{advices.message.text}</h4>);
         }
-        // console.log(result)
     };
 
     return (
@@ -82,13 +87,7 @@ const SearchPage = () => {
                     </svg>
                 </button>
             </div>
-            <section>
-                {element ? (
-                    element
-                ) : (
-                    <h3>Search anything..</h3>
-                )}
-            </section>
+            <section>{element ? element : <h3>Search anything..</h3>}</section>
         </div>
     );
 };
