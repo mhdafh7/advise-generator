@@ -11,6 +11,7 @@ const Card = ({ advice, id, refetchBtn }) => {
     const handleWindowSizeChange = () => {
         setWidth(window.innerWidth);
     };
+
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
         return () => {
@@ -32,7 +33,9 @@ const Card = ({ advice, id, refetchBtn }) => {
             {refetchBtn ? (
                 <div
                     className="dice"
-                    onClick={() => refetch()}
+                    onClick={() => {
+                        refetch;
+                    }}
                 >
                     <IconDice />
                 </div>
