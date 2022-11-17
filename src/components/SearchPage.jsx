@@ -4,11 +4,13 @@ import { useGetSearchAdviceQuery } from '../features/api/apiSlice';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeToHome } from '../features/tabs/tabSlice';
+import { changeData } from '../features/updateData/updateDataSlice';
 
 const SearchPage = () => {
     const [query, setQuery] = useState('');
     const [element, setElement] = useState(null);
     const dispatch = useDispatch();
+
     const {
         data: advices,
         isLoading,
@@ -30,11 +32,11 @@ const SearchPage = () => {
             setElement(<h4>Oops Something bad happend!</h4>);
             return;
         } else if (isLoading) {
-            console.log('loading');
+            console.log('isLoading');
             setElement(<h4>Loading...</h4>);
             return;
         } else if (advices.slips) {
-            console.log(advices);
+            // console.log(advices);
             setElement(
                 advices.slips.map((advice) => {
                     return (
@@ -42,7 +44,11 @@ const SearchPage = () => {
                             to="/"
                             key={advice.id}
                             onClick={() => {
+                                console.log(advice);
                                 dispatch(changeToHome());
+                                setTimeout(() => {
+                                    dispatch(changeData(advice));
+                                }, 200);
                             }}
                         >
                             <Card
@@ -55,7 +61,7 @@ const SearchPage = () => {
                 })
             );
         } else {
-            console.log(advices.message.text);
+            console.log('Advice message text: ' + advices.message.text);
             setElement(<h4>{advices.message.text}</h4>);
         }
     };

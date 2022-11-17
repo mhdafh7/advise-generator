@@ -32,10 +32,7 @@ const Card = ({ advice, id, refetchBtn }) => {
             {refetchBtn ? (
                 <div
                     className="dice"
-                    onClick={() => {
-                        console.log('stuff');
-                        refetch();
-                    }}
+                    onClick={() => refetch()}
                 >
                     <IconDice />
                 </div>
